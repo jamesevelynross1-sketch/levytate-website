@@ -1,16 +1,24 @@
 import type { Metadata } from "next";
-import { Cherry_Bomb_One } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const cherry = Cherry_Bomb_One({
+const geist = Geist({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-bubble",
+  variable: "--font-geist",
+});
+
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-  title: "LevyTate",
-  description: "Launching soon",
+  title: "LevyTate | The apprenticeship operating system",
+  description:
+    "Explore LevyTate: one connected environment for workforce opportunity, apprenticeship investment, providers and impact.",
+  icons: {
+    icon: "/levytate-icon-final.svg",
+  },
 };
 
 export default function RootLayout({
@@ -20,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cherry.variable}>{children}</body>
+      <body className={`${geist.variable} ${mono.variable}`}>{children}</body>
     </html>
   );
 }
