@@ -4,219 +4,194 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 
 type Perspective = "employer" | "provider";
-type HubKey = "workforce" | "opportunity" | "investment" | "delivery" | "impact";
+type HubKey = "find" | "plan" | "open" | "run" | "prove";
 
 type HubView = {
-  title: string;
-  hover: string;
+  label: string;
+  cue: string;
   headline: string;
   body: string;
-  outcome: string;
-  signal: [string, string, string];
+  result: string;
+  flow: [string, string, string];
 };
 
 type HubItem = {
   id: HubKey;
-  label: string;
-  tone: "mint" | "coral" | "navy";
+  colour: "mint" | "coral" | "navy";
   employer: HubView;
   provider: HubView;
 };
 
 const hubItems: HubItem[] = [
   {
-    id: "workforce",
-    label: "Workforce",
-    tone: "mint",
+    id: "find",
+    colour: "mint",
     employer: {
-      title: "Workforce",
-      hover: "See where apprenticeship opportunity exists across your organisation.",
-      headline: "Find the opportunity already inside your workforce.",
+      label: "Find",
+      cue: "See where apprenticeships fit.",
+      headline: "Find where apprenticeships fit.",
       body:
-        "Move beyond isolated requests. LevyTate helps employers think at workforce level — connecting roles, skills needs and development potential so apprenticeship planning starts with the organisation, not with a course list.",
-      outcome: "A clearer view of who could develop, where and why.",
-      signal: ["Roles", "Skills", "Potential"],
+        "Turn workforce needs into clear apprenticeship opportunities. See who could benefit, where the fit is and what to do next.",
+      result: "Opportunity becomes visible before someone has to ask for it.",
+      flow: ["Roles", "Need", "Opportunity"],
     },
     provider: {
-      title: "Employer demand",
-      hover: "Understand employer need in context, not as isolated course enquiries.",
-      headline: "See the workforce need behind the programme.",
+      label: "Demand",
+      cue: "See the need behind the enquiry.",
+      headline: "See the need behind the enquiry.",
       body:
-        "LevyTate gives providers a better context for employer demand. The conversation starts with roles, workforce priorities and development needs — creating a more useful route into the right programmes and the right delivery relationship.",
-      outcome: "Better-aligned conversations with employers around genuine demand.",
-      signal: ["Need", "Context", "Demand"],
+        "Understand the employer context before the programme conversation starts — the role, the workforce need and the outcome they are trying to create.",
+      result: "Better-fit employer opportunities.",
+      flow: ["Employer need", "Role", "Demand"],
     },
   },
   {
-    id: "opportunity",
-    label: "Opportunity",
-    tone: "coral",
+    id: "plan",
+    colour: "navy",
     employer: {
-      title: "Opportunity",
-      hover: "Turn roles and business needs into relevant development routes.",
-      headline: "Make apprenticeship opportunity easier to understand.",
+      label: "Plan",
+      cue: "Use levy with intent.",
+      headline: "Plan levy around workforce need.",
       body:
-        "Employees and managers should not need to understand the apprenticeship system before they can use it. LevyTate translates workforce needs into clearer development opportunities and gives people a route to explore what could fit.",
-      outcome: "More relevant opportunities, presented in language people can use.",
-      signal: ["Need", "Pathway", "Action"],
+        "See what is committed, what is coming next and where capacity remains. Treat levy as planned workforce investment, not a balance to chase.",
+      result: "Funding decisions become deliberate.",
+      flow: ["Levy", "Demand", "Plan"],
     },
     provider: {
-      title: "Programme relevance",
-      hover: "Position programmes against the workforce problems they can solve.",
-      headline: "Put your programmes in the context employers care about.",
+      label: "Fit",
+      cue: "Show where your programmes belong.",
+      headline: "Be found for the right reasons.",
       body:
-        "Instead of leading with a catalogue, providers can show where their programmes fit an employer's workforce priorities. LevyTate helps make the connection between organisational need, employee development and delivery.",
-      outcome: "A stronger reason for employers to engage with the right programme.",
-      signal: ["Priority", "Fit", "Programme"],
+        "Position programmes against real workforce need rather than presenting another catalogue. Make the fit clear before the sales conversation.",
+      result: "Stronger programme relevance.",
+      flow: ["Priority", "Fit", "Programme"],
     },
   },
   {
-    id: "investment",
-    label: "Investment",
-    tone: "navy",
+    id: "open",
+    colour: "coral",
     employer: {
-      title: "Investment",
-      hover: "Treat levy and funding as planned workforce investment.",
-      headline: "Move from levy spend to workforce investment.",
+      label: "Open",
+      cue: "Make opportunity easy to access.",
+      headline: "Make opportunity easy to access.",
       body:
-        "LevyTate gives employers a clearer way to think about apprenticeship funding: what is already committed, what is likely to come next and where unused opportunity may remain. The aim is not simply to spend levy, but to connect investment to workforce priorities.",
-      outcome: "More confident planning and a clearer financial picture.",
-      signal: ["Available", "Planned", "Committed"],
+        "Give employees and managers a clear way to understand options, express interest and move forward without having to decode apprenticeships first.",
+      result: "More of the right people can engage.",
+      flow: ["Explore", "Decide", "Apply"],
     },
     provider: {
-      title: "Funding confidence",
-      hover: "Help employers understand how delivery fits their funding position.",
-      headline: "Make the funding conversation easier to navigate.",
+      label: "Access",
+      cue: "Remove friction before enrolment.",
+      headline: "Reduce friction before enrolment.",
       body:
-        "Providers often enter the conversation after an employer has already struggled with funding questions. LevyTate creates a clearer planning environment so programme decisions can sit alongside affordability, timing and workforce need.",
-      outcome: "Fewer disconnected funding conversations and better-informed demand.",
-      signal: ["Plan", "Afford", "Commit"],
+        "Help employers clarify the opportunity, internal decision and funding position before the learner reaches delivery.",
+      result: "Cleaner, better-prepared starts.",
+      flow: ["Clarity", "Decision", "Start"],
     },
   },
   {
-    id: "delivery",
-    label: "Delivery",
-    tone: "coral",
+    id: "run",
+    colour: "navy",
     employer: {
-      title: "Delivery",
-      hover: "Bring employees, managers, L&D and providers into one journey.",
-      headline: "Give the apprenticeship journey somewhere to live.",
+      label: "Run",
+      cue: "Keep the journey connected.",
+      headline: "Keep the journey connected.",
       body:
-        "From initial interest through internal decisions and provider delivery, LevyTate creates a connected environment around the apprenticeship journey. Everyone sees the part that matters to them without the employer having to stitch the process together manually.",
-      outcome: "A more structured journey with less fragmentation.",
-      signal: ["Employee", "Manager", "Provider"],
+        "Bring approvals, providers and delivery into one joined-up flow. Everyone sees what they need without the employer stitching the process together.",
+      result: "Less friction. Clearer ownership.",
+      flow: ["Approve", "Deliver", "Track"],
     },
     provider: {
-      title: "Connected delivery",
-      hover: "Sit inside a clearer employer journey from need to delivery.",
-      headline: "Join the employer journey at the right point.",
+      label: "Deliver",
+      cue: "Join a clearer employer journey.",
+      headline: "Join a clearer employer journey.",
       body:
-        "LevyTate gives providers a clearer place in the employer's operating model. The delivery relationship becomes part of a connected process rather than a separate hand-off, supporting better expectations and a stronger learner experience.",
-      outcome: "A cleaner transition from employer need into delivery.",
-      signal: ["Employer", "Learner", "Delivery"],
+        "Work inside a more structured route from employer need to learner delivery, with clearer expectations and fewer disconnected hand-offs.",
+      result: "A better transition into delivery.",
+      flow: ["Employer", "Learner", "Delivery"],
     },
   },
   {
-    id: "impact",
-    label: "Impact",
-    tone: "mint",
+    id: "prove",
+    colour: "mint",
     employer: {
-      title: "Impact",
-      hover: "Connect apprenticeship activity back to organisational outcomes.",
-      headline: "Show what apprenticeship investment is producing.",
+      label: "Prove",
+      cue: "Show what the investment changed.",
+      headline: "Show what the investment changed.",
       body:
-        "Starts alone do not tell the story. LevyTate is designed to help employers connect apprenticeship activity to progression, capability and business outcomes so the value of the strategy is easier to understand and communicate.",
-      outcome: "A stronger evidence base for future apprenticeship investment.",
-      signal: ["Activity", "Progress", "Outcomes"],
+        "Connect apprenticeship activity to progression, capability and business outcomes — not just starts and completions.",
+      result: "Value is easier to evidence and defend.",
+      flow: ["Activity", "Progress", "Impact"],
     },
     provider: {
-      title: "Employer impact",
-      hover: "Evidence the outcomes employers need to take back to the business.",
-      headline: "Make delivery easier to connect to employer outcomes.",
+      label: "Value",
+      cue: "Evidence outcomes employers can use.",
+      headline: "Evidence value employers can use.",
       body:
-        "Provider performance matters, but employers increasingly need to explain what development changed. LevyTate creates a place for delivery and organisational impact to sit closer together.",
-      outcome: "A better story about value, not simply participation.",
-      signal: ["Learning", "Change", "Value"],
+        "Help employers connect learning to the changes they need to show internally — capability, progression and business impact.",
+      result: "A stronger story about value.",
+      flow: ["Learning", "Change", "Value"],
     },
   },
 ];
 
 export default function InteractiveHub() {
   const [perspective, setPerspective] = useState<Perspective>("employer");
-  const [selectedId, setSelectedId] = useState<HubKey>("workforce");
-  const [previewId, setPreviewId] = useState<HubKey>("workforce");
+  const [selectedId, setSelectedId] = useState<HubKey>("find");
+  const [previewId, setPreviewId] = useState<HubKey>("find");
 
-  const selectedItem = useMemo(
+  const activeItem = useMemo(
     () => hubItems.find((item) => item.id === previewId) ?? hubItems[0],
     [previewId]
   );
 
-  const selectedView = selectedItem[perspective];
+  const activeView = activeItem[perspective];
 
   const contactHref =
     perspective === "employer"
-      ? "mailto:hello@levytate.co.uk?subject=LevyTate%20for%20our%20organisation&body=Hi%20LevyTate%2C%0A%0AI%27d%20like%20to%20see%20how%20LevyTate%20could%20work%20for%20our%20organisation.%0A%0AName%3A%0AOrganisation%3A"
-      : "mailto:hello@levytate.co.uk?subject=Joining%20LevyTate%20as%20a%20provider&body=Hi%20LevyTate%2C%0A%0AI%27d%20like%20to%20talk%20about%20joining%20LevyTate%20as%20a%20training%20provider.%0A%0AName%3A%0AOrganisation%3A";
+      ? "mailto:hello@levytate.co.uk?subject=LevyTate%20walkthrough&body=Hi%20LevyTate%2C%0A%0AI%27d%20like%20to%20book%20a%20walkthrough.%0A%0AName%3A%0AOrganisation%3A"
+      : "mailto:hello@levytate.co.uk?subject=LevyTate%20provider%20conversation&body=Hi%20LevyTate%2C%0A%0AI%27d%20like%20to%20understand%20the%20provider%20opportunity.%0A%0AName%3A%0AOrganisation%3A";
 
   return (
-    <section className="hub-section" id="explore" aria-labelledby="hub-heading">
-      <div className="section-intro">
-        <p className="eyebrow">Explore LevyTate</p>
-        <h2 id="hub-heading">One connected apprenticeship environment.</h2>
-        <p>
-          Explore the areas that matter to you. Hover for the idea, click for the
-          detail. This is not the full platform — it is the LevyTate way of
-          thinking.
-        </p>
+    <section className="system-section" id="hub" aria-labelledby="hub-title">
+      <div className="system-head">
+        <div className="section-number inverse">02</div>
+        <div>
+          <p className="eyebrow inverse">The LevyTate hub</p>
+          <h2 id="hub-title">Five jobs. One system.</h2>
+        </div>
+
+        <div className="perspective-tabs" aria-label="Choose your perspective">
+          <button
+            type="button"
+            className={perspective === "employer" ? "active" : ""}
+            aria-pressed={perspective === "employer"}
+            onClick={() => setPerspective("employer")}
+          >
+            Employer
+          </button>
+          <button
+            type="button"
+            className={perspective === "provider" ? "active" : ""}
+            aria-pressed={perspective === "provider"}
+            onClick={() => setPerspective("provider")}
+          >
+            Provider
+          </button>
+        </div>
       </div>
 
-      <div className="perspective-switch" aria-label="Choose your perspective">
-        <button
-          type="button"
-          className={perspective === "employer" ? "active" : ""}
-          aria-pressed={perspective === "employer"}
-          onClick={() => setPerspective("employer")}
-        >
-          For employers
-        </button>
-        <button
-          type="button"
-          className={perspective === "provider" ? "active" : ""}
-          aria-pressed={perspective === "provider"}
-          onClick={() => setPerspective("provider")}
-        >
-          For training providers
-        </button>
-      </div>
-
-      <div className="hub-layout">
-        <div className="hub-map" aria-label="Interactive LevyTate hub">
-          <div className="hub-orbit hub-orbit-one" aria-hidden="true" />
-          <div className="hub-orbit hub-orbit-two" aria-hidden="true" />
-
-          <div className="hub-centre">
-            <div className="hub-centre-mark">
-              <Image
-                src="/levytate-icon-final.svg"
-                width={313}
-                height={320}
-                alt=""
-                priority
-              />
-            </div>
-            <span>LevyTate</span>
-            <small>connected hub</small>
-          </div>
-
-          {hubItems.map((item) => {
+      <div className="system-grid">
+        <nav className="system-index" aria-label="Explore LevyTate">
+          {hubItems.map((item, index) => {
             const view = item[perspective];
-            const isActive = previewId === item.id;
+            const active = previewId === item.id;
 
             return (
               <button
                 type="button"
                 key={item.id}
-                className={`hub-node node-${item.id} tone-${item.tone} ${isActive ? "active" : ""}`}
+                className={active ? "active" : ""}
                 aria-pressed={selectedId === item.id}
                 onMouseEnter={() => setPreviewId(item.id)}
                 onMouseLeave={() => setPreviewId(selectedId)}
@@ -227,43 +202,62 @@ export default function InteractiveHub() {
                   setPreviewId(item.id);
                 }}
               >
-                <span className="node-dot" aria-hidden="true" />
-                <strong>{item.label}</strong>
-                <span>{view.hover}</span>
+                <span className="system-index-number">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="system-index-copy">
+                  <strong>{view.label}</strong>
+                  <small>{view.cue}</small>
+                </span>
+                <span className="system-index-arrow" aria-hidden="true">↗</span>
               </button>
             );
           })}
+        </nav>
+
+        <div className={`system-core colour-${activeItem.colour}`} aria-hidden="true">
+          <span className="core-axis core-axis-x" />
+          <span className="core-axis core-axis-y" />
+          <span className="core-ring core-ring-a" />
+          <span className="core-ring core-ring-b" />
+          <span className="core-tag core-tag-top">
+            {perspective === "employer" ? "EMPLOYER" : "PROVIDER"} / {activeView.label.toUpperCase()}
+          </span>
+          <Image
+            src="/levytate-icon-final.svg"
+            width={313}
+            height={320}
+            alt=""
+            priority
+          />
+          <span className="core-tag core-tag-bottom">LEVYTATE / 02</span>
         </div>
 
-        <aside className={`hub-detail tone-${selectedItem.tone}`} aria-live="polite">
-          <div className="detail-topline">
-            <span className="detail-kicker">{selectedView.title}</span>
-            <span className="detail-perspective">
-              {perspective === "employer" ? "Employer view" : "Provider view"}
-            </span>
+        <aside className="system-readout" aria-live="polite">
+          <div className="readout-meta">
+            <span>{activeView.label}</span>
+            <span>{perspective === "employer" ? "Employer view" : "Provider view"}</span>
           </div>
 
-          <h3>{selectedView.headline}</h3>
-          <p>{selectedView.body}</p>
+          <h3>{activeView.headline}</h3>
+          <p>{activeView.body}</p>
 
-          <div className="signal-card" aria-label="Example LevyTate flow">
-            {selectedView.signal.map((label, index) => (
-              <div className="signal-step" key={label}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{label}</strong>
-              </div>
+          <div className="readout-flow" aria-label="Simple flow">
+            {activeView.flow.map((step, index) => (
+              <span key={step}>
+                <i>{String(index + 1).padStart(2, "0")}</i>
+                <strong>{step}</strong>
+              </span>
             ))}
           </div>
 
-          <div className="detail-outcome">
-            <span>What changes</span>
-            <strong>{selectedView.outcome}</strong>
+          <div className="readout-result">
+            <span>Result</span>
+            <strong>{activeView.result}</strong>
           </div>
 
-          <a className="text-link" href={contactHref}>
-            {perspective === "employer"
-              ? "See LevyTate with your organisation"
-              : "Talk to us about joining LevyTate"}
+          <a className="system-link" href={contactHref}>
+            {perspective === "employer" ? "Book a walkthrough" : "Talk to LevyTate"}
             <span aria-hidden="true">→</span>
           </a>
         </aside>
