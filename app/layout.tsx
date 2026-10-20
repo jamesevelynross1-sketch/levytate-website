@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
-import { Cherry_Bomb_One } from "next/font/google";
 import "./globals.css";
 
-const cherry = Cherry_Bomb_One({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-bubble",
-});
-
 export const metadata: Metadata = {
-  title: "LevyTate",
-  description: "Launching soon",
+  title: "LevyTate | The apprenticeship operating system for employers",
+  description:
+    "LevyTate helps employers understand apprenticeship opportunity, plan investment, coordinate delivery and show the impact — in one connected environment.",
+  icons: {
+    icon: "/levytate-icon-final.svg",
+  },
 };
 
 export default function RootLayout({
@@ -20,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cherry.variable}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
