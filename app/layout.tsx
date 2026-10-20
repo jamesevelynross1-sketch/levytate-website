@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { Manrope, Space_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-geist",
 });
 
-const mono = Space_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
   variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
   title: "LevyTate | The apprenticeship operating system",
   description:
-    "LevyTate gives employers one place to find apprenticeship opportunity, plan investment, run the journey and prove value.",
+    "Explore LevyTate: one connected environment for workforce opportunity, apprenticeship investment, providers and impact.",
   icons: {
     icon: "/levytate-icon-final.svg",
   },
@@ -29,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${mono.variable}`}>{children}</body>
+      <body className={`${geist.variable} ${mono.variable}`}>{children}</body>
     </html>
   );
 }
