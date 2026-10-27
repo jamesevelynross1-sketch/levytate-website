@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Generated from the approved public story during build:public
+/public/mission-v3/*.html
+/public/mission-v3/interactions.js
+/public/brand/mission-icon.png
+/public/brand/mission-wordmark.png

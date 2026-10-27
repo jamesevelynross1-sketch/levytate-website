@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LevyTate website
 
-## Getting Started
+Public marketing site for [LevyTate](https://www.levytate.co.uk). The employer application lives separately at `https://app.levytate.co.uk`.
 
-First, run the development server:
+## Pages
+
+- `/` homepage, the three-part employer story
+- `/apprenticeships`, `/funding`, `/manage-apprenticeships`
+- `/early-access`
+- `/solutions/employers`, `/solutions/employees`, `/solutions/training-providers`
+- `/privacy`, `/early-access-terms`, `/data-processing`, `/support`, `/account-help`, `/data-rights`
+
+`/login` and `/app/*` redirect to the application. Older `/levytate/...` marketing URLs redirect to these root paths.
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy `.env.example` to `.env.local` when you need a platform origin other than the default.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+NEXT_PUBLIC_PLATFORM_URL=https://app.levytate.co.uk
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+That value is the origin only. Login links, sign-in links and `/app` redirects use it.
 
-## Learn More
+Early Access posts JSON to `{NEXT_PUBLIC_PLATFORM_URL}/api/levytate-early-access` with credentials omitted. Because the body is JSON, the browser sends a CORS preflight. The platform must answer `OPTIONS` and `POST` with `Access-Control-Allow-Origin` for this website, `Access-Control-Allow-Methods: POST, OPTIONS`, and `Access-Control-Allow-Headers: Content-Type`. Until those headers exist, the browser blocks the submission.
 
-To learn more about Next.js, take a look at the following resources:
+## Checks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm test
+npm run typecheck
+npm run lint
+npm run build
+```
