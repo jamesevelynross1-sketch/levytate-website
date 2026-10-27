@@ -13,11 +13,9 @@ export const metadata: Metadata = {
     "LevyTate helps employers manage apprenticeships, workforce development and provider matching in one place.",
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: [
-      { url: "/brand/pwa/levytate-192.png", type: "image/png", sizes: "192x192" },
-      { url: "/brand/pwa/levytate-512.png", type: "image/png", sizes: "512x512" },
-    ],
-    apple: [{ url: "/brand/pwa/levytate-192.png", type: "image/png", sizes: "192x192" }],
+    shortcut: "/favicon.ico?v=20261027",
+    icon: [{ url: "/levytate-tab-icon-20261027.png", type: "image/png", sizes: "32x32" }],
+    apple: [{ url: "/apple-touch-icon.png?v=20261027", type: "image/png", sizes: "180x180" }],
   },
   appleWebApp: {
     capable: true,

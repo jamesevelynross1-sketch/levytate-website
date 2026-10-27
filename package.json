@@ -6,12 +6,13 @@
     "node": "22.x"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "build:public": "node scripts/build-levytate-home.mjs && node scripts/build-levytate-pages.mjs && node --check public/mission-v3/interactions.js && node --check public/mission-v3/navigation.js && node --check public/mission-v2/site.js",
+    "dev": "npm run build:public && next dev",
+    "build": "npm run build:public && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "npm run build:public && node --test tests/buyer-site-content.test.cjs tests/forecast-model.test.cjs && vitest run"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

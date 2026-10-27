@@ -4,7 +4,8 @@ Public marketing site for [LevyTate](https://www.levytate.co.uk). The employer a
 
 ## Pages
 
-- `/` homepage
+- `/` homepage, the three-part employer story
+- `/apprenticeships`, `/funding`, `/manage-apprenticeships`
 - `/early-access`
 - `/solutions/employers`, `/solutions/employees`, `/solutions/training-providers`
 - `/privacy`, `/early-access-terms`, `/data-processing`, `/support`, `/account-help`, `/data-rights`

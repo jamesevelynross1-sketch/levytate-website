@@ -66,6 +66,10 @@ describe("marketing redirects", () => {
     expect(resolveMarketingRedirect("/levytate/manifest.webmanifest")).toBe("/manifest.webmanifest");
     expect(resolveMarketingRedirect("/privacy")).toBeNull();
     expect(resolveMarketingRedirect("/early-access")).toBeNull();
+    expect(resolveMarketingRedirect("/")).toBeNull();
+    expect(resolveMarketingRedirect("/apprenticeships")).toBeNull();
+    expect(resolveMarketingRedirect("/funding")).toBeNull();
+    expect(resolveMarketingRedirect("/manage-apprenticeships")).toBeNull();
   });
 
   it("is the redirect table used by Next.js config", () => {
